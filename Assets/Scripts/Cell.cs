@@ -19,27 +19,32 @@ public class Cell : MonoBehaviour
         put.transform.localScale =
             new Vector3(put.transform.localScale.x, put.transform.localScale.y * 2,
             put.transform.localScale.z);
-
+        put.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+        
         item = put;
 
         if (obj.GetComponent<Item>().id == needID)
         {
             trueItem = true;
+            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
         }
         else if (obj.GetComponent<Item>().rubbish && rubbishBin)
         {
             trueItem = true;
+            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
         }
         else if (!obj.GetComponent<Item>().rubbish && rubbishBin)
         {
             trueItem = true;
+            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
         }
         else
         {
             trueItem = false;
+            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().mistake;
         }
 
-            Destroy(obj);
+        Destroy(obj);
         Player.instance.currentItem = null;
 
         filled = true;
@@ -50,6 +55,8 @@ public class Cell : MonoBehaviour
         Player.instance.currentItem = item;
         Player.instance.currentItem.transform.SetParent(Player.instance.handsPosition);
         Player.instance.currentItem.transform.position = Player.instance.handsPosition.position;
+        Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 4;
+        Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Player.instance.currentItem.GetComponent<Item>().normal;
         item = null;
         filled = false;
         trueItem = false;

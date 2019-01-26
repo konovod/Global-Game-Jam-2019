@@ -5,5 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public int id;
+    public Sprite normal;
+    public Sprite mistake;
     public bool rubbish;
 }

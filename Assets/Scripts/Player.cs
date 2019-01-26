@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,8 +13,8 @@ public class Player : MonoBehaviour
     public Transform handsPosition;
     [SerializeField] private Transform dropPosition;
     public GameObject currentItem;
-    [SerializeField] private Cell currentCell;
     [SerializeField] private List<Transform> nearest = new List<Transform>();
+    [SerializeField] private List<Transform> nearestCells = new List<Transform>();
 
     private void Awake()
     {
@@ -45,18 +46,12 @@ public class Player : MonoBehaviour
         {
             if (!hands)
             {
-                if (currentCell)
+                var currentCells = nearestCells.Where(cell => cell.GetComponent<Cell>().filled).ToArray();
+                if (currentCells.Count() > 0)
                 {
-                    if (currentCell.filled)
-                    {
-                        currentCell.Take();
-                        Debug.Log("Взялся с ячейки");
-                        hands = true;
-                    }
-                    else
-                    {
-                        Pick();
-                    }
+                    currentCells[0].GetComponent<Cell>().Take();
+                    Debug.Log("Взялся с ячейки");
+                    hands = true;
                 }
                 else
                 {
@@ -67,18 +62,14 @@ public class Player : MonoBehaviour
             {
                 if (!Ladder.instance.inProgress)
                 {
-                    if (currentCell)
+                    var currentCells = nearestCells.Where(cell => !cell.GetComponent<Cell>().filled).ToArray();
+                    if (currentCells.Count() > 0)
                     {
-                        if (!currentCell.filled)
-                            PutInTheCell(currentItem);
-                        else
-                            DropOnTheFloor();
-                        Debug.Log("Положилось в ячейку");
+                        PutInTheCell(currentCells[0].GetComponent<Cell>(), currentItem);
                     }
                     else
                     {
                         DropOnTheFloor();
-                        Debug.Log("Выкинулось на пол");
                     }
 
                     hands = false;
@@ -99,7 +90,7 @@ public class Player : MonoBehaviour
             currentItem.transform.position = handsPosition.position;
 
             currentItem.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
-
+            currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().normal;
             Debug.Log("Подобрался рандомный предмет");
             hands = true;
         }
@@ -114,14 +105,16 @@ public class Player : MonoBehaviour
             drop.transform.localScale.z);
 
         drop.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
+        drop.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().mistake;
 
         Destroy(currentItem);
         currentItem = null;
     }
 
-    void PutInTheCell(GameObject obj)
+    void PutInTheCell(Cell cell, GameObject obj)
     {
-        currentCell.Put(obj);
+
+        cell.Put(obj);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -134,7 +127,7 @@ public class Player : MonoBehaviour
             }
             else if (col.transform.parent.GetComponent<Cell>())
             {
-                currentCell = col.transform.parent.GetComponent<Cell>();
+                nearestCells.Add(col.transform.parent);
             }
         }
     }
@@ -149,7 +142,7 @@ public class Player : MonoBehaviour
             }
             else if (col.transform.parent.GetComponent<Cell>())
             {
-                currentCell = null;
+                nearestCells.Remove(col.transform.parent);
             }
         }
     }

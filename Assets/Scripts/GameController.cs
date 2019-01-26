@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    private Text bubbleText;
-    public string[] replycs;
+    public GameObject task;
+    public SpriteRenderer bubble;
+    public Sprite[] replycs;
 
     void Start()
     {
-        
+        StopBubble();
     }
     
     void Update()
@@ -18,19 +19,24 @@ public class GameController : MonoBehaviour
         
     }
 
-    public void Bubble(int indexReplyc, float secondsDisapear)
+    public void StartBubble(int indexReplyc, float secondsDisapear)
     {
         StopCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
         StartCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
     }
 
+    public void StopBubble()
+    {
+        task.SetActive(false);
+    }
+
     IEnumerator BubbleCoroutine(int indexReplyc, float secondsDisapear)
     {
-        bubbleText.gameObject.SetActive(true);
-        bubbleText.text = replycs[indexReplyc];
+        bubble.sprite = replycs[indexReplyc];
+        task.SetActive(true);
 
         yield return new WaitForSeconds(secondsDisapear);
 
-        bubbleText.gameObject.SetActive(false);
+        task.SetActive(false);
     }
 }
