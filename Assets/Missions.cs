@@ -34,6 +34,35 @@ abstract public class TimedMission : Mission
     }
 }
 
+
+public class MissionWin : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(12, -1);
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return false;
+    }
+}
+
+public class MissionGameOver : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(11, -1);
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return false;
+    }
+}
+
 public class TrainingMissionAD : Mission
 {
     override public void OnInit(MonoBehaviour something)
@@ -111,32 +140,22 @@ public class TrainingMissionDropItem : Mission
     }
 }
 
-public class MissionWin : Mission
+public class MissionFitTV : Mission
 {
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        GameController.instance.StartBubble(12, -1);
+        GameController.instance.StartBubble(3, 4);
+    }
+    override public void OnFinish(MonoBehaviour something)
+    {
+        base.OnFinish(something);
+        GameController.instance.StopBubble();
     }
 
     override public bool Complete(MonoBehaviour something)
     {
-        return false;
+        return Item.fit.ContainsKey(Scenario.instance.tv_id) && Item.fit[Scenario.instance.tv_id];
     }
 }
-
-public class MissionGameOver : Mission
-{
-    override public void OnInit(MonoBehaviour something)
-    {
-        base.OnInit(something);
-        GameController.instance.StartBubble(11, -1);
-    }
-
-    override public bool Complete(MonoBehaviour something)
-    {
-        return false;
-    }
-}
-
 

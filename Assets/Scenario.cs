@@ -14,6 +14,7 @@ public class Scenario : MonoBehaviour
     public Mission curMission = null;
     public Mission gameOverMission = null;
     public int curMissionIndex = 0;
+    public int tv_id; 
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class Scenario : MonoBehaviour
         missions.Add(new TrainingMissionAD());
         missions.Add(new TrainingMissionTakeItem());
         missions.Add(new TrainingMissionDropItem());
+        missions.Add(new MissionFitTV());
         //        missions.Add(new TrainingMissionWS());
         missions.Add(new MissionWin());
         gameOverMission = new MissionGameOver();
@@ -42,8 +44,12 @@ public class Scenario : MonoBehaviour
     void Update()
     {
         if (curMission == null)
-            return;
-        if(curMission.Complete(this))
+        {
+            curMissionIndex = 0;
+            curMission = missions[0];
+            curMission.OnInit(this);
+        }
+        if (curMission.Complete(this))
         {
             Debug.Log(curMission);
             curMission.OnFinish(this);
