@@ -115,25 +115,31 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.parent.GetComponent<Item>())
+        if (col.transform.parent)
         {
-            nearest.Add(col.transform.parent);
-        }
-        else if (col.transform.parent.GetComponent<Cell>())
-        {
-            currentCell = col.transform.parent.GetComponent<Cell>();
+            if (col.transform.parent.GetComponent<Item>())
+            {
+                nearest.Add(col.transform.parent);
+            }
+            else if (col.transform.parent.GetComponent<Cell>())
+            {
+                currentCell = col.transform.parent.GetComponent<Cell>();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.transform.parent.GetComponent<Item>())
+        if (col.transform.parent)
         {
-            nearest.Remove(col.transform.parent);
-        }
-        else if (col.transform.parent.GetComponent<Cell>())
-        {
-            currentCell = null;
+            if (col.transform.parent.GetComponent<Item>())
+            {
+                nearest.Remove(col.transform.parent);
+            }
+            else if (col.transform.parent.GetComponent<Cell>())
+            {
+                currentCell = null;
+            }
         }
     }
 }
