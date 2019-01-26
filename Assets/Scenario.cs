@@ -29,7 +29,9 @@ public class Scenario : MonoBehaviour
     void Start()
     {
         missions.Add(new TrainingMissionAD());
-        missions.Add(new TrainingMissionWS());
+        missions.Add(new TrainingMissionTakeItem());
+        missions.Add(new TrainingMissionDropItem());
+        //        missions.Add(new TrainingMissionWS());
         missions.Add(new MissionWin());
         gameOverMission = new MissionGameOver();
         curMission = missions[0];

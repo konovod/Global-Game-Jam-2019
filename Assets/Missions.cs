@@ -88,10 +88,28 @@ public class TrainingMissionTakeItem : Mission
 
     override public bool Complete(MonoBehaviour something)
     {
-        return Player.instance.UsedWS;
+        return Player.instance.currentItem != null;
     }
 }
 
+public class TrainingMissionDropItem : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(2, 4);
+    }
+    override public void OnFinish(MonoBehaviour something)
+    {
+        base.OnFinish(something);
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return Player.instance.currentItem == null;
+    }
+}
 
 public class MissionWin : Mission
 {
