@@ -4,11 +4,5 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.transform.CompareTag("Player"))
-        {
-            Debug.Log("Игрок рядом");
-        }
-    }
+    public int id;
 }
