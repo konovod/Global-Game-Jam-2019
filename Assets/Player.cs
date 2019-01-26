@@ -16,4 +16,12 @@ public class Player : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         transform.Translate(Vector3.right * horizontal);
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Item"))
+        {
+            Debug.Log("Премет: " + name);
+        }
+    }
 }
