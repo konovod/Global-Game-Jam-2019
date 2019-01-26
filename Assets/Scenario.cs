@@ -76,9 +76,17 @@ public class DemoMission2 : TimedMission
 
 public class Scenario : MonoBehaviour
 {
+    public static Scenario instance;
+
     public List<Mission> missions = new List<Mission>();
-    Mission curMission = null;
-    int curMissionIndex = 0;
+    public Mission curMission = null;
+    public int curMissionIndex = 0;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,12 +100,19 @@ public class Scenario : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (curMission == null)
+            return;
         if(curMission.Complete(this))
         {
             curMission.OnFinish(this);
             curMissionIndex += 1;
-            curMission = missions[curMissionIndex];
-            curMission.OnInit(this);
+            if (curMissionIndex < missions.Count)
+            {
+                curMission = missions[curMissionIndex];
+                curMission.OnInit(this);
+            }
+            else
+                curMission = null;
         }
     }
 }
