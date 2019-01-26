@@ -417,8 +417,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571358058}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03099966, y: 0.735, z: 0.015683701}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.892, y: 7.52, z: 0.015683701}
+  m_LocalScale: {x: 1.471248, y: 5.5881443, z: 1}
   m_Children: []
   m_Father: {fileID: 1857572595}
   m_RootOrder: 0
@@ -459,8 +459,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 918068eea82effa45bb868c8e4bdc52d, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: c594732950987464ba7b7faf64db1608, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1417,10 +1417,10 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.002216816}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 3.02}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.97, y: 7.43}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 2.97, y: 7.42}
+    newSize: {x: 2.97, y: 7.42}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -1465,12 +1465,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 773fcc45faddc0e49850541e6eaa1b5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: deb05bfa8d539ac4f97079710b68f8ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.97, y: 7.42}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1495,8 +1495,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.468, y: -1.158}
-  m_SizeDelta: {x: 3.02, y: -6.898}
+  m_AnchoredPosition: {x: -5.458, y: -1.043}
+  m_SizeDelta: {x: 2.98, y: -7.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1871134303
 MonoBehaviour:
