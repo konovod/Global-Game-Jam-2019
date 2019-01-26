@@ -6,8 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player instance;
-
-
+    
     [SerializeField] private float speed = 4;
     [SerializeField] private bool hands = false;
     public Transform handsPosition;
@@ -50,7 +49,7 @@ public class Player : MonoBehaviour
                 if (currentCells.Count() > 0)
                 {
                     currentCells[0].GetComponent<Cell>().Take();
-                    Debug.Log("Взялся с ячейки");
+                    
                     hands = true;
                 }
                 else
@@ -91,7 +90,7 @@ public class Player : MonoBehaviour
 
             currentItem.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
             currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().normal;
-            Debug.Log("Подобрался рандомный предмет");
+            
             hands = true;
         }
     }

@@ -1031,8 +1031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   task: {fileID: 1857572594}
   bubble: {fileID: 571358060}
-  replycs:
-  - {fileID: 21300000, guid: 918068eea82effa45bb868c8e4bdc52d, type: 3}
+  replycs: []
 --- !u!1 &1857572594
 GameObject:
   m_ObjectHideFlags: 0
