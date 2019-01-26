@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+
     [SerializeField] private float speed = 4;
     [SerializeField] private bool hands = false;
-    [SerializeField] private Transform handsPosition;
+    public Transform handsPosition;
     [SerializeField] private Transform dropPosition;
-    [SerializeField] private GameObject currentItem;
+    public GameObject currentItem;
+    [SerializeField] private Cell currentCell;
     [SerializeField] private List<Transform> nearest = new List<Transform>();
 
-    
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Update()
     {
         Move();
@@ -30,51 +37,103 @@ public class Player : MonoBehaviour
         {
             if (!hands)
             {
-                //Take
-                if (nearest.Count > 0)
+                if (currentCell)
                 {
-                    int rand = Random.Range(0, nearest.Count);
-
-                    currentItem = nearest[rand].gameObject;
-                    currentItem.transform.SetParent(handsPosition);
-                    currentItem.transform.position = handsPosition.position;
-
-                    nearest.Remove(nearest[rand]);
-
-                    hands = true;
+                    if (currentCell.filled)
+                    {
+                        currentCell.Take();
+                        Debug.Log("Взялся с ячейки");
+                        hands = true;
+                    }
+                    else
+                    {
+                        Pick();
+                    }
+                }
+                else
+                {
+                    Pick();
                 }
             }
             else
             {
-                //Drop
-                GameObject drop = Instantiate(currentItem, dropPosition.position, transform.rotation);
-                drop.name = currentItem.name;
-                drop.transform.localScale = 
-                    new Vector3(drop.transform.localScale.x, drop.transform.localScale.y * 2, 
-                    drop.transform.localScale.z);
-                Destroy(currentItem);
-                currentItem = null;
+                if (currentCell)
+                {
+                    if (!currentCell.filled)
+                        PutInTheCell(currentItem);
+                    else
+                        DropOnTheFloor();
+                    Debug.Log("Положилось в ячейку");
+                }
+                else
+                {
+                    DropOnTheFloor();
+                    Debug.Log("Выкинулось на пол");
+                }
 
                 hands = false;
             }
         }
     }
 
+    void Pick()
+    {
+        if (nearest.Count > 0)
+        {
+            int rand = Random.Range(0, nearest.Count);
+
+            currentItem = nearest[rand].gameObject;
+            nearest.Remove(nearest[rand].parent);
+            currentItem.transform.SetParent(handsPosition);
+            currentItem.transform.position = handsPosition.position;
+
+            currentItem.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
+
+            Debug.Log("Подобрался рандомный предмет");
+            hands = true;
+        }
+    }
+
+    void DropOnTheFloor()
+    {
+        GameObject drop = Instantiate(currentItem, dropPosition.position, currentItem.transform.rotation);
+        drop.name = currentItem.name;
+        drop.transform.localScale =
+            new Vector3(drop.transform.localScale.x, drop.transform.localScale.y * 2,
+            drop.transform.localScale.z);
+
+        drop.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
+
+        Destroy(currentItem);
+        currentItem = null;
+    }
+
+    void PutInTheCell(GameObject obj)
+    {
+        currentCell.Put(obj);
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Item"))
+        if (col.transform.parent.GetComponent<Item>())
         {
             nearest.Add(col.transform.parent);
-            Debug.Log("Премет: " + col.name);
+        }
+        else if (col.transform.parent.GetComponent<Cell>())
+        {
+            currentCell = col.transform.parent.GetComponent<Cell>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Item"))
+        if (col.transform.parent.GetComponent<Item>())
         {
             nearest.Remove(col.transform.parent);
-            Debug.Log("Премет: " + col.name);
+        }
+        else if (col.transform.parent.GetComponent<Cell>())
+        {
+            currentCell = null;
         }
     }
 }
