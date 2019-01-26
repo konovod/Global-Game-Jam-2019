@@ -1185,7 +1185,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   task: {fileID: 1857572594}
   bubble: {fileID: 571358060}
-  replycs: []
+  replycs:
+  - {fileID: 21300000, guid: c594732950987464ba7b7faf64db1608, type: 3}
+  - {fileID: 21300000, guid: 9e9c135dad676fc4fb063b776e6d4268, type: 3}
+  - {fileID: 21300000, guid: 1be270b0a7dbff945a183d4268586c7c, type: 3}
+  - {fileID: 21300000, guid: 066650124b3d785489d849966f6fab5f, type: 3}
+  - {fileID: 21300000, guid: c5c128826ff646e4d9fdf8f055030e63, type: 3}
+  - {fileID: 21300000, guid: 623e4a9a37c66684ab338c42cf7f4f38, type: 3}
+  - {fileID: 21300000, guid: 9d1b8e2d276db2147812003175cff978, type: 3}
+  - {fileID: 21300000, guid: c2eb515676a3a1343bbd721df329d79e, type: 3}
+  - {fileID: 21300000, guid: a6ffcc27e3d11ed41a91129910202fc8, type: 3}
+  - {fileID: 21300000, guid: adb380540348a9c478f0f81f9241071f, type: 3}
+  - {fileID: 21300000, guid: b5c4bdeb3488c2747aca2aacb391a182, type: 3}
+  - {fileID: 21300000, guid: 4e5045a30fcba754ea4b5d740a8beca8, type: 3}
+  - {fileID: 21300000, guid: 8d398553c8c251b4ca6b964e722bb3ad, type: 3}
 --- !u!1 &1857572594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,6 +1208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1857572595}
+  - component: {fileID: 1857572596}
   m_Layer: 0
   m_Name: Task
   m_TagString: Untagged
@@ -1217,6 +1231,18 @@ Transform:
   m_Father: {fileID: 227479105598538010}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857572596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857572594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b956088c85ac844b05702955c5365a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1871134297
 GameObject:
   m_ObjectHideFlags: 0

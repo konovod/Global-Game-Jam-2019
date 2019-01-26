@@ -34,41 +34,90 @@ abstract public class TimedMission : Mission
     }
 }
 
-public class DemoMission1 : TimedMission
+public class TrainingMissionAD : Mission
 {
-    override public float TheTime(MonoBehaviour something)
-    {
-        return 10;
-    }
-
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        Debug.Log("start11");
+        GameController.instance.StartBubble(0, 4);
     }
     override public void OnFinish(MonoBehaviour something)
     {
         base.OnFinish(something);
-        Debug.Log("end1");
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return Player.instance.UsedAD;
     }
 }
 
-public class DemoMission2 : TimedMission
+public class TrainingMissionWS : Mission
 {
-    override public float TheTime(MonoBehaviour something)
-    {
-        return 3;
-    }
-
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        Debug.Log("start2");
+        GameController.instance.StartBubble(1, 4);
     }
     override public void OnFinish(MonoBehaviour something)
     {
         base.OnFinish(something);
-        Debug.Log("end2");
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return Player.instance.UsedWS;
+    }
+}
+
+
+public class TrainingMissionTakeItem : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(1, 4);
+    }
+    override public void OnFinish(MonoBehaviour something)
+    {
+        base.OnFinish(something);
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return Player.instance.UsedWS;
+    }
+}
+
+
+public class MissionWin : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(12, -1);
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return false;
+    }
+}
+
+public class MissionGameOver : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(11, -1);
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        return false;
     }
 }
 

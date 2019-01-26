@@ -12,6 +12,7 @@ public class Scenario : MonoBehaviour
 
     public List<Mission> missions = new List<Mission>();
     public Mission curMission = null;
+    public Mission gameOverMission = null;
     public int curMissionIndex = 0;
 
     private void Awake()
@@ -19,12 +20,18 @@ public class Scenario : MonoBehaviour
         instance = this;
     }
 
+    public void GameOver()
+    {
+        curMission = gameOverMission;
+        curMission.OnInit(this);
+    }
     // Start is called before the first frame update
     void Start()
     {
-        missions.Add(new DemoMission1());
-        missions.Add(new DemoMission2());
-        missions.Add(new DemoMission1());
+        missions.Add(new TrainingMissionAD());
+        missions.Add(new TrainingMissionWS());
+        missions.Add(new MissionWin());
+        gameOverMission = new MissionGameOver();
         curMission = missions[0];
         curMission.OnInit(this);
     }
@@ -36,6 +43,7 @@ public class Scenario : MonoBehaviour
             return;
         if(curMission.Complete(this))
         {
+            Debug.Log(curMission);
             curMission.OnFinish(this);
             curMissionIndex += 1;
             if (curMissionIndex < missions.Count)

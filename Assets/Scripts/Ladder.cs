@@ -27,6 +27,9 @@ public class Ladder : MonoBehaviour
         inProgress = !nearBottom && !nearTop;
         float vertical = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         v.y += vertical;
+        if (vertical != 0)
+            Player.instance.UsedWS = true;
+
 
         nearTop = v.y >= ladderTop.position.y - 0.00001;
         nearBottom = v.y <= ladderBottom.position.y + 0.00001;

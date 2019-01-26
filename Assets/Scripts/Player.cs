@@ -17,8 +17,13 @@ public class Player : MonoBehaviour
     private SpriteRenderer sr;
     public Sprite[] frames;
 
+    public bool UsedAD;
+    public bool UsedWS;
+
     private void Awake()
     {
+        UsedAD = false;
+        UsedWS = false;
         sr = GetComponent<SpriteRenderer>();
         instance = this;
     }
@@ -38,6 +43,8 @@ public class Player : MonoBehaviour
         if (!Ladder.instance.inProgress)
         {
             float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            if(horizontal != 0)
+                UsedAD = true;
             transform.Translate(Vector3.right * horizontal);
         }
     }
