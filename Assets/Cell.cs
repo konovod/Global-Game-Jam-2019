@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour
 {
     public bool filled = false;
     public bool trueItem = false;
+    public bool rubbishBin = false;
     public int needID;
     public Transform pos;
     public GameObject item;
@@ -25,12 +26,20 @@ public class Cell : MonoBehaviour
         {
             trueItem = true;
         }
+        else if (obj.GetComponent<Item>().rubbish && rubbishBin)
+        {
+            trueItem = true;
+        }
+        else if (!obj.GetComponent<Item>().rubbish && rubbishBin)
+        {
+            trueItem = true;
+        }
         else
         {
             trueItem = false;
         }
 
-        Destroy(obj);
+            Destroy(obj);
         Player.instance.currentItem = null;
 
         filled = true;
