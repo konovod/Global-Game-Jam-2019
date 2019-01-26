@@ -65,21 +65,24 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (currentCell)
+                if (!Ladder.instance.inProgress)
                 {
-                    if (!currentCell.filled)
-                        PutInTheCell(currentItem);
+                    if (currentCell)
+                    {
+                        if (!currentCell.filled)
+                            PutInTheCell(currentItem);
+                        else
+                            DropOnTheFloor();
+                        Debug.Log("Положилось в ячейку");
+                    }
                     else
+                    {
                         DropOnTheFloor();
-                    Debug.Log("Положилось в ячейку");
-                }
-                else
-                {
-                    DropOnTheFloor();
-                    Debug.Log("Выкинулось на пол");
-                }
+                        Debug.Log("Выкинулось на пол");
+                    }
 
-                hands = false;
+                    hands = false;
+                }
             }
         }
     }
