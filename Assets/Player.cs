@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
 
+
     [SerializeField] private float speed = 4;
     [SerializeField] private bool hands = false;
     public Transform handsPosition;
@@ -27,8 +28,15 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        transform.Translate(Vector3.right * horizontal);
+        if (Ladder.instance.onLadder)
+        {
+            Ladder.instance.Control();
+        }
+        if (!Ladder.instance.inProgress)
+        {
+            float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            transform.Translate(Vector3.right * horizontal);
+        }
     }
 
     void TakeAndPutItem()
