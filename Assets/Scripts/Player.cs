@@ -14,9 +14,12 @@ public class Player : MonoBehaviour
     public GameObject currentItem;
     [SerializeField] private List<Transform> nearest = new List<Transform>();
     [SerializeField] private List<Transform> nearestCells = new List<Transform>();
+    private SpriteRenderer sr;
+    public Sprite[] frames;
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         instance = this;
     }
 
@@ -100,7 +103,7 @@ public class Player : MonoBehaviour
         GameObject drop = Instantiate(currentItem, dropPosition.position, currentItem.transform.rotation);
         drop.name = currentItem.name;
         drop.transform.localScale =
-            new Vector3(drop.transform.localScale.x, drop.transform.localScale.y * 2,
+            new Vector3(drop.transform.localScale.x/2, drop.transform.localScale.y / 2,
             drop.transform.localScale.z);
 
         drop.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
