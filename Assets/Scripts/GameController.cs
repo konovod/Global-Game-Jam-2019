@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        StopBubble();
+        //StopBubble();
     }
     
     void Update()
