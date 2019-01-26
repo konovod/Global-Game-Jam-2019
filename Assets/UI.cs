@@ -20,7 +20,7 @@ public class UI : MonoBehaviour
     void Update()
     {
 
-        //SelectedMessage();
+        SelectedMessage();
         OpenSMS();
         
     }
@@ -44,17 +44,19 @@ public class UI : MonoBehaviour
 
     public void SelectedMessage()
     {
+        Sms sms = new Sms();
+
             if (_incSmsNumber == 0)
             {
-                Debug.Log("FirstMes");
+            Debug.Log(sms.smsMessage[0]);
             }
             else if (_incSmsNumber == 1)
             {
-                Debug.Log("SecondMes");
+                Debug.Log(sms.smsMessage[1]);
             }
             else if (_incSmsNumber == 2)
             {
-                Debug.Log("ThirdMes");
+                Debug.Log(sms.smsMessage[2]);
             }
 
     }
