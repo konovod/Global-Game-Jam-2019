@@ -234,6 +234,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 636892021, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 636892020, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.29
@@ -4641,6 +4645,10 @@ PrefabInstance:
     - target: {fileID: 1470925043, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: rubbish
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470925043, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
+      propertyPath: id
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 636892019, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: m_LocalPosition.y
