@@ -14,7 +14,8 @@ public class Scenario : MonoBehaviour
     public Mission curMission = null;
     public Mission gameOverMission = null;
     public int curMissionIndex = 0;
-    public int tv_id; 
+    public int tv_id;
+    public BoxCollider2D FirstRoom;
 
     private void Awake()
     {
@@ -29,15 +30,17 @@ public class Scenario : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        missions.Add(new TrainingMissionAD());
-        missions.Add(new TrainingMissionTakeItem());
-        missions.Add(new TrainingMissionDropItem());
-        missions.Add(new MissionFitTV());
+        //missions.Add(new TrainingMissionAD());
+        //missions.Add(new TrainingMissionTakeItem());
+        //missions.Add(new TrainingMissionDropItem());
+        //missions.Add(new MissionFitTV());
+        missions.Add(new MissionCleanFirstRoom());
         //        missions.Add(new TrainingMissionWS());
         missions.Add(new MissionWin());
         gameOverMission = new MissionGameOver();
         curMission = missions[0];
         curMission.OnInit(this);
+        
     }
 
     // Update is called once per frame

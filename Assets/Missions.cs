@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 abstract public class Mission
@@ -158,4 +159,41 @@ public class MissionFitTV : Mission
         return Item.fit.ContainsKey(Scenario.instance.tv_id) && Item.fit[Scenario.instance.tv_id];
     }
 }
+
+public class MissionCleanFirstRoom : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(4, 4);
+    }
+    override public void OnFinish(MonoBehaviour something)
+    {
+        base.OnFinish(something);
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        Debug.Log(Item.ItemsLocation.Keys.Count());
+        foreach (var id in Item.ItemsLocation.Keys)
+        {
+            Debug.Log(Item.ItemsLocation[id]);
+            if (Item.ItemsLocation[id] != null && !Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position))
+            {
+                Debug.Log(Item.ItemsLocation[id].position);
+                Debug.Log(Scenario.instance.FirstRoom.bounds);
+            }
+        }
+        return false;
+
+                //    }
+                //}
+                return !Item.ItemsLocation.Keys.Any(id =>
+            Item.ItemsLocation[id] == null ||
+            (Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position) && !Item.fit[id]));
+        //return false;
+    }
+}
+
 

@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
             currentItem.transform.position = handsPosition.position;
 
             currentItem.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
-            currentItem.GetComponent<Item>().SetFit(false);
+            currentItem.GetComponent<Item>().SetFit(null, false);
             currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().normal;
             
             hands = true;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
             drop.transform.localScale.z);
 
         drop.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
-        currentItem.GetComponent<Item>().SetFit(false);
+        currentItem.GetComponent<Item>().SetFit(drop.transform, false);
         drop.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().mistake;
 
         Destroy(currentItem);
