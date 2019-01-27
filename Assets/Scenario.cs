@@ -19,11 +19,11 @@ public class Scenario : MonoBehaviour
     public int[] AllItems = { 1,2,3,4,5,6,7};
     public BoxCollider2D FirstRoom;
 
-    static const float FULL_TIME = 3*60.0f;
-    static const float SMS_START = 4.0f;
-    static const float SMS_TIME = 10.0f;
-    static const float SMS_DEADLINE = 7.0f;
-    static const float SMS_COUNT = 6;
+    const float FULL_TIME = 3*60.0f;
+    const float SMS_START = 4.0f;
+    const float SMS_TIME = 10.0f;
+    const float SMS_DEADLINE = 7.0f;
+    const float SMS_COUNT = 6;
 
     private void Awake()
     {
