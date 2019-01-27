@@ -175,24 +175,7 @@ public class MissionCleanFirstRoom : Mission
 
     override public bool Complete(MonoBehaviour something)
     {
-        Debug.Log(Item.ItemsLocation.Keys.Count());
-        foreach (var id in Item.ItemsLocation.Keys)
-        {
-            Debug.Log(Item.ItemsLocation[id]);
-            if (Item.ItemsLocation[id] != null && !Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position))
-            {
-                Debug.Log(Item.ItemsLocation[id].position);
-                Debug.Log(Scenario.instance.FirstRoom.bounds);
-            }
-        }
         return false;
-
-                //    }
-                //}
-                return !Item.ItemsLocation.Keys.Any(id =>
-            Item.ItemsLocation[id] == null ||
-            (Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position) && !Item.fit[id]));
-        //return false;
     }
 }
 
