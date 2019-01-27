@@ -33,8 +33,8 @@ public class GameController : MonoBehaviour
         bubble.sprite = replycs[indexReplyc];
         task.SetActive(true);
 
-        StopCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
-        //StartCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
+        //StopCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
+        StartCoroutine(BubbleCoroutine(indexReplyc, secondsDisapear));
     }
 
     public void StopBubble()
@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator BubbleCoroutine(int indexReplyc, float secondsDisapear)
     {
-        if(secondsDisapear <= 0)
+        if(secondsDisapear >= 0)
             yield return new WaitForSeconds(secondsDisapear);
 
         if(indexReplyc == curReplic && secondsDisapear >= 0)

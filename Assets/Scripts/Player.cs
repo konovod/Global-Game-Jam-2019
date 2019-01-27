@@ -100,8 +100,11 @@ public class Player : MonoBehaviour
 
             currentItem.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
             currentItem.GetComponent<Item>().SetFit(null, false);
-            currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().normal;
-            
+            if(Item.TRASH_IN_HAND)
+                currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().mistake;
+            else
+                currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentItem.GetComponent<Item>().normal;
+
             hands = true;
         }
     }

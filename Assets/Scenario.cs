@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //using Missions;
 
 //класс отвечает за исполнение и переключение миссий.
@@ -15,7 +16,7 @@ public class Scenario : MonoBehaviour
     public Mission gameOverMission = null;
     public int curMissionIndex = 0;
     public int tv_id;
-    public int[] first_items;
+    public int[] AllItems = { 1,2,3,4,5,6,7};
     public BoxCollider2D FirstRoom;
 
     private void Awake()
@@ -31,11 +32,12 @@ public class Scenario : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //missions.Add(new TrainingMissionAD());
-        //missions.Add(new TrainingMissionTakeItem());
-        //missions.Add(new TrainingMissionDropItem());
-        //missions.Add(new MissionFitTV());
-        missions.Add(new MissionCleanFirstRoom());
+        missions.Add(new TrainingMissionAD());
+        missions.Add(new TrainingMissionTakeItem());
+        missions.Add(new TrainingMissionDropItem());
+        missions.Add(new MissionFitTV());
+        //missions.Add(new MissionCleanFirstRoom());
+        missions.Add(new MissionCleanAll());
         //        missions.Add(new TrainingMissionWS());
         missions.Add(new MissionWin());
         gameOverMission = new MissionGameOver();
@@ -67,4 +69,18 @@ public class Scenario : MonoBehaviour
                 curMission = null;
         }
     }
+
+    public void StartGameOverTimer()
+    {
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    IEnumerator GameOverCoroutine()
+    {
+        yield return new WaitForSeconds(60.0f);
+        if(!(curMission is MissionWin))
+            GameOver();
+    }
+
+
 }

@@ -23,26 +23,11 @@ public class Cell : MonoBehaviour
         
         item = put;
 
-        if (obj.GetComponent<Item>().id == needID)
-        {
-            trueItem = true;
+        trueItem = rubbishBin || obj.GetComponent<Item>().id == needID;
+        if(trueItem)
             put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
-        }
-        else if (obj.GetComponent<Item>().rubbish && rubbishBin)
-        {
-            trueItem = true;
-            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
-        }
-        else if (!obj.GetComponent<Item>().rubbish && rubbishBin)
-        {
-            trueItem = true;
-            put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().normal;
-        }
         else
-        {
-            trueItem = false;
             put.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = put.GetComponent<Item>().mistake;
-        }
         obj.GetComponent<Item>().SetFit(put.transform, trueItem);
         Destroy(obj);
         Player.instance.currentItem = null;
@@ -57,7 +42,10 @@ public class Cell : MonoBehaviour
         Player.instance.currentItem.transform.position = Player.instance.handsPosition.position;
         Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 4;
         Player.instance.currentItem.GetComponent<Item>().SetFit(null, false);
-        Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Player.instance.currentItem.GetComponent<Item>().normal;
+        if(Item.TRASH_IN_HAND)
+            Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Player.instance.currentItem.GetComponent<Item>().mistake;
+        else
+            Player.instance.currentItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Player.instance.currentItem.GetComponent<Item>().normal;
         item = null;
         filled = false;
         trueItem = false;

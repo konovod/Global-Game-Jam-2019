@@ -8,13 +8,9 @@ public class Item : MonoBehaviour
     public Sprite normal;
     public Sprite mistake;
     public bool rubbish;
+    static public bool TRASH_IN_HAND = false;
     public static Dictionary<int, bool> fit = new Dictionary<int, bool>();
     public static Dictionary<int, Transform> ItemsLocation = new Dictionary<int, Transform>();
-
-    private void Start()
-    {
-        //SetFit(transform, false);
-    }
 
     public static bool IsFit(int id)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
+
 abstract public class Mission
 {
     virtual public void OnInit(MonoBehaviour something)
@@ -175,7 +176,7 @@ public class MissionCleanFirstRoom : Mission
 
     override public bool Complete(MonoBehaviour something)
     {
-        foreach(var id in Scenario.instance.first_items)
+        foreach(var id in Scenario.instance.AllItems)
         {
             if (!Item.IsFit(id) && (Item.ItemsLocation[id] == null || Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position)))
                 return false;
@@ -184,4 +185,33 @@ public class MissionCleanFirstRoom : Mission
     }
 }
 
+
+public class MissionCleanAll : Mission
+{
+    override public void OnInit(MonoBehaviour something)
+    {
+        base.OnInit(something);
+        GameController.instance.StartBubble(9, 4);
+        Scenario.instance.StartGameOverTimer();
+    }
+    override public void OnFinish(MonoBehaviour something)
+    {
+        base.OnFinish(something);
+        GameController.instance.StopBubble();
+    }
+
+    override public bool Complete(MonoBehaviour something)
+    {
+        foreach (var id in Scenario.instance.AllItems)
+        {
+            if (!Item.IsFit(id))
+            {
+                Debug.Log(id);
+                return false;
+            }
+        }
+        return true;
+    }
+
+}
 
