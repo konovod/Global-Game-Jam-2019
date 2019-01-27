@@ -81,21 +81,39 @@ public class Scenario : MonoBehaviour
         StartCoroutine(GameOverCoroutine());
     }
 
+    public void StartWin()
+    {
+        StartCoroutine(WinCoroutine());
+    }
+
+    IEnumerator WinCoroutine()
+    {
+        yield return new WaitForSeconds(SMS_DEADLINE);
+        GameController.instance.StartBubble(12, 4);
+    }
+
     IEnumerator GameOverCoroutine()
     {
         yield return new WaitForSeconds(SMS_START);
         for (int i=0; i<SMS_COUNT; i++)
         {
-            ///показать i-ю смс
-            Debug.Log("sms show");
-            yield return new WaitForSeconds(SMS_DEADLINE);
-            ///проверить что смс было отвечено
-            Debug.Log("sms check");
-            yield return new WaitForSeconds(SMS_TIME - SMS_DEADLINE);
+            if (!(curMission is MissionWin))
+            {
+                ///показать i-ю смс
+                Debug.Log("sms show");
+                yield return new WaitForSeconds(SMS_DEADLINE);
+                ///проверить что смс было отвечено
+                Debug.Log("sms check");
+                yield return new WaitForSeconds(SMS_TIME - SMS_DEADLINE);
+            }
         }
-        yield return new WaitForSeconds(FULL_TIME - SMS_START - SMS_COUNT* SMS_TIME);
+        yield return new WaitForSeconds(FULL_TIME - SMS_START - SMS_COUNT* SMS_TIME - 4);
         if (!(curMission is MissionWin))
+        {
+            GameController.instance.StartBubble(14, 4);
+            yield return new WaitForSeconds(4);
             GameOver();
+        }
     }
 
 

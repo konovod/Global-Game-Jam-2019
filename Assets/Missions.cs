@@ -42,7 +42,8 @@ public class MissionWin : Mission
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        GameController.instance.StartBubble(12, -1);
+        GameController.instance.StartBubble(14, -1);
+        Scenario.instance.StartWin();
     }
 
     override public bool Complete(MonoBehaviour something)
@@ -199,7 +200,7 @@ public class MissionCleanAll : Mission
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        GameController.instance.StartBubble(9, 4);
+        GameController.instance.StartBubble(13, 4);
         Scenario.instance.StartGameOverTimer();
     }
     override public void OnFinish(MonoBehaviour something)
