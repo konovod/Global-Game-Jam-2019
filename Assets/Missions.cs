@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
-
-
 
 abstract public class Mission
 {
@@ -57,7 +56,7 @@ public class MissionGameOver : Mission
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
-        GameController.instance.StartBubble(11, -1);
+        Scenario.instance.GameOverNow();
     }
 
     override public bool Complete(MonoBehaviour something)
@@ -199,6 +198,13 @@ public class MissionCleanAll : Mission
 {
     override public void OnInit(MonoBehaviour something)
     {
+        Scenario.instance.phone.SetActive(true);
+        Scenario.instance.phone.GetComponent<Image>().sprite = Scenario.instance.homeScreen;
+        Scenario.instance.interfacePhone.SetActive(false);
+
+        Scenario.instance.slider.gameObject.SetActive(true);
+        Scenario.instance.StartTimer();
+
         base.OnInit(something);
         GameController.instance.StartBubble(13, 4);
         Scenario.instance.StartGameOverTimer();

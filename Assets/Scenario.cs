@@ -2,10 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 //using Missions;
 
 //класс отвечает за исполнение и переключение миссий.
 
+[System.Serializable]
+public class Message
+{
+    public string meassage;
+    public string[] variants;
+    [Range(1, 3)] public int trueVariant = 1;
+    public bool was = false;
+}
 
 public class Scenario : MonoBehaviour
 {
@@ -19,22 +28,75 @@ public class Scenario : MonoBehaviour
     public int[] AllItems = { 1,2,3,4,5,6,7};
     public BoxCollider2D FirstRoom;
 
-    const float FULL_TIME = 3*60.0f;
+    [Header("Messages")]
+    public Message[] messages;
+    public Text messageText;
+    public Button[] btns;
+    public GameObject phone;
+    public Sprite smsScreen;
+    public Sprite homeScreen;
+    public GameObject interfacePhone;
+    public bool answered;
+
+    [Header("Timer")]
+    public Slider slider;
+
+    public const float FULL_TIME = 3*60.0f;
     const float SMS_START = 4.0f;
-    const float SMS_TIME = 10.0f;
-    const float SMS_DEADLINE = 7.0f;
-    const float SMS_COUNT = 6;
+    const float SMS_TIME = 15.0f;
+    const float SMS_DEADLINE = 8.0f;
 
     private void Awake()
     {
         instance = this;
     }
 
+    public void GameOverNow()
+    {
+        curMission = gameOverMission;
+        GameController.instance.StartBubble(11, -1);
+        RestartScene();
+    }
     public void GameOver()
     {
         curMission = gameOverMission;
         curMission.OnInit(this);
+        RestartScene();
     }
+
+    public void RestartScene()
+    {
+        StartCoroutine(RestartSceneCoroutine());
+    }
+
+    public IEnumerator RestartSceneCoroutine()
+    {
+        StopCoroutine(GameOverCoroutine());
+        phone.SetActive(false);
+        yield return new WaitForSeconds(4);
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void StartTimer()
+    {
+        StartCoroutine(Timer());
+    }
+
+    IEnumerator Timer()
+    {
+        while (true)
+        {
+            slider.value += 1 * Time.deltaTime;
+
+            if (slider.value >= slider.maxValue)
+            {
+                slider.value = slider.maxValue;
+                break;
+            }
+            yield return null;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +111,10 @@ public class Scenario : MonoBehaviour
         gameOverMission = new MissionGameOver();
         curMission = missions[0];
         curMission.OnInit(this);
-        
+
+        phone.SetActive(false);
+        slider.gameObject.SetActive(false);
+        slider.maxValue = FULL_TIME;
     }
 
     // Update is called once per frame
@@ -95,19 +160,23 @@ public class Scenario : MonoBehaviour
     IEnumerator GameOverCoroutine()
     {
         yield return new WaitForSeconds(SMS_START);
-        for (int i=0; i<SMS_COUNT; i++)
+        messages = messages.OrderBy(x => Random.Range(0.0f, 1.0f)).ToArray();
+        for (int i=0; i< messages.Length; i++)
         {
             if (!(curMission is MissionWin))
             {
-                ///показать i-ю смс
-                Debug.Log("sms show");
+                if (i == 0) GameController.instance.StartBubble(5, 4);
+
+                DisplayMessage(messages[i]);
+                answered = false;
                 yield return new WaitForSeconds(SMS_DEADLINE);
-                ///проверить что смс было отвечено
+                if (!answered)
+                    GameOver();
                 Debug.Log("sms check");
                 yield return new WaitForSeconds(SMS_TIME - SMS_DEADLINE);
             }
         }
-        yield return new WaitForSeconds(FULL_TIME - SMS_START - SMS_COUNT* SMS_TIME - 4);
+        yield return new WaitForSeconds(FULL_TIME - SMS_START - messages.Length * SMS_TIME - 4);
         if (!(curMission is MissionWin))
         {
             GameController.instance.StartBubble(14, 4);
@@ -116,5 +185,47 @@ public class Scenario : MonoBehaviour
         }
     }
 
+    void DisplayMessage(Message message)
+    {
+        if (curMission is MissionGameOver)
+            return;
+        messageText.text = message.meassage;
+        phone.GetComponent<Image>().sprite = smsScreen;
+        interfacePhone.SetActive(true);
 
+        foreach (Button b in btns)
+        {
+            b.gameObject.SetActive(false);
+            b.onClick.RemoveAllListeners();
+        }
+        for (int i = 0; i < message.variants.Length; i++)
+        {
+            btns[i].gameObject.SetActive(true);
+            btns[i].transform.GetChild(0).GetComponent<Text>().text = message.variants[i];
+        }
+        btns[0].onClick.AddListener(() => TrueVatiant(1, message.trueVariant));
+        if (message.variants.Length < 2)
+            return;
+        btns[1].onClick.AddListener(() => TrueVatiant(2, message.trueVariant));
+        if (message.variants.Length < 3)
+            return;
+        btns[2].onClick.AddListener(() => TrueVatiant(3, message.trueVariant));
+    }
+
+    void TrueVatiant(int currentVariant, int trueVariant)
+    {
+        if (currentVariant == trueVariant)
+        {
+            answered = true;
+            phone.GetComponent<Image>().sprite = homeScreen;
+            interfacePhone.SetActive(false);
+            Debug.Log("right");
+        }
+        else
+        {
+            GameOverNow();
+            Debug.Log("wrong");
+        }
+        //phone.SetActive(false);
+    }
 }
