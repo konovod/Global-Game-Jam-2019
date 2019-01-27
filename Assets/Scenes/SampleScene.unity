@@ -207,11 +207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 636892019, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 636892019, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 636892019, guid: b0216e19797616f4db28118fa1df2cda, type: 3}
       propertyPath: m_LocalScale.z
@@ -3913,7 +3913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curMissionIndex: 0
   tv_id: 3
-  first_items: 
+  first_items: 01000000030000000600000063000000
 --- !u!1 &1882486863
 GameObject:
   m_ObjectHideFlags: 0

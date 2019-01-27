@@ -175,7 +175,12 @@ public class MissionCleanFirstRoom : Mission
 
     override public bool Complete(MonoBehaviour something)
     {
-        return false;
+        foreach(var id in Scenario.instance.first_items)
+        {
+            if (!Item.fit[id] && (Item.ItemsLocation[id] == null || true))
+                return false;
+        }
+        return true;
     }
 }
 
