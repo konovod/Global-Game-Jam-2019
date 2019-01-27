@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 //using Missions;
 
@@ -33,6 +34,7 @@ public class Scenario : MonoBehaviour
     public Text messageText;
     public Button[] btns;
     public GameObject phone;
+    public GameObject alarm;
     public Sprite smsScreen;
     public Sprite homeScreen;
     public GameObject interfacePhone;
@@ -74,7 +76,31 @@ public class Scenario : MonoBehaviour
         StopCoroutine(GameOverCoroutine());
         phone.SetActive(false);
         yield return new WaitForSeconds(4);
-        Application.LoadLevel(Application.loadedLevel);
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public IEnumerator Alarm()
+    {
+        //1
+        alarm.SetActive(true);
+        yield return new WaitForSeconds(0.125f);
+        alarm.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        //2
+        alarm.SetActive(true);
+        yield return new WaitForSeconds(0.125f);
+        alarm.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        //3
+        alarm.SetActive(true);
+        yield return new WaitForSeconds(0.125f);
+        alarm.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        //4
+        alarm.SetActive(true);
+        yield return new WaitForSeconds(0.125f);
+        alarm.SetActive(false);
     }
 
     public void StartTimer()
@@ -111,8 +137,10 @@ public class Scenario : MonoBehaviour
         gameOverMission = new MissionGameOver();
         curMission = missions[0];
         curMission.OnInit(this);
+        Item.fit.Clear();
 
         phone.SetActive(false);
+        alarm.SetActive(false);
         slider.gameObject.SetActive(false);
         slider.maxValue = FULL_TIME;
     }
@@ -128,7 +156,6 @@ public class Scenario : MonoBehaviour
         }
         if (curMission.Complete(this))
         {
-            Debug.Log(curMission);
             curMission.OnFinish(this);
             curMissionIndex += 1;
             if (curMissionIndex < missions.Count)
@@ -190,6 +217,9 @@ public class Scenario : MonoBehaviour
         if (curMission is MissionGameOver)
             return;
         messageText.text = message.meassage;
+
+        StartCoroutine(Alarm());
+
         phone.GetComponent<Image>().sprite = smsScreen;
         interfacePhone.SetActive(true);
 
