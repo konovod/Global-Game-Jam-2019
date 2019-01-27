@@ -13,8 +13,16 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        SetFit(transform, false);
+        //SetFit(transform, false);
     }
+
+    public static bool IsFit(int id)
+    {
+        if (!fit.ContainsKey(id))
+            fit.Add(id, false);
+        return fit[id];
+    }
+
 
     public void SetFit(Transform who, bool isFit)
     {
