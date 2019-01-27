@@ -19,6 +19,12 @@ public class Scenario : MonoBehaviour
     public int[] AllItems = { 1,2,3,4,5,6,7};
     public BoxCollider2D FirstRoom;
 
+    static const float FULL_TIME = 3*60.0f;
+    static const float SMS_START = 4.0f;
+    static const float SMS_TIME = 10.0f;
+    static const float SMS_DEADLINE = 7.0f;
+    static const float SMS_COUNT = 6;
+
     private void Awake()
     {
         instance = this;
@@ -77,8 +83,16 @@ public class Scenario : MonoBehaviour
 
     IEnumerator GameOverCoroutine()
     {
-        yield return new WaitForSeconds(60.0f);
-        if(!(curMission is MissionWin))
+        yield return new WaitForSeconds(SMS_START);
+        for (int i=0; i<SMS_COUNT; i++)
+        {
+            ///показать i-ю смс
+            yield return new WaitForSeconds(SMS_DEADLINE);
+            ///проверить что смс было отвечено
+            yield return new WaitForSeconds(SMS_TIME - SMS_DEADLINE);
+        }
+        yield return new WaitForSeconds(FULL_TIME - SMS_START - SMS_COUNT* SMS_TIME);
+        if (!(curMission is MissionWin))
             GameOver();
     }
 
