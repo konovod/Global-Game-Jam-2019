@@ -16,9 +16,9 @@ public class Cell : MonoBehaviour
         GameObject put = 
             Instantiate(obj, pos.position, obj.transform.rotation);
         put.name = obj.name;
-        put.transform.localScale =
-            new Vector3(put.transform.localScale.x / 2, put.transform.localScale.y / 2,
-            put.transform.localScale.z);
+        //put.transform.localScale =
+        //    new Vector3(put.transform.localScale.x, put.transform.localScale.y,
+        //    put.transform.localScale.z);
         put.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
         
         item = put;

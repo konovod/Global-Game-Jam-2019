@@ -110,9 +110,9 @@ public class Player : MonoBehaviour
     {
         GameObject drop = Instantiate(currentItem, dropPosition.position, currentItem.transform.rotation);
         drop.name = currentItem.name;
-        drop.transform.localScale =
-            new Vector3(drop.transform.localScale.x/2, drop.transform.localScale.y / 2,
-            drop.transform.localScale.z);
+        //drop.transform.localScale =
+        //    new Vector3(drop.transform.localScale.x, drop.transform.localScale.y,
+        //    drop.transform.localScale.z);
 
         drop.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
         currentItem.GetComponent<Item>().SetFit(drop.transform, false);
