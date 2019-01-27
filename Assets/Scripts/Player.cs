@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Transform> nearestCells = new List<Transform>();
     private SpriteRenderer sr;
     public Sprite[] frames;
+    public bool LookingLeft = false;
 
     public bool UsedAD;
     public bool UsedWS;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     {
         UsedAD = false;
         UsedWS = false;
-        sr = GetComponent<SpriteRenderer>();
+        sr = transform.GetChild(3).GetComponent<SpriteRenderer>();
         instance = this;
     }
 
@@ -43,8 +44,21 @@ public class Player : MonoBehaviour
         if (!Ladder.instance.inProgress)
         {
             float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-            if(horizontal != 0)
+            if (horizontal != 0)
+            { 
                 UsedAD = true;
+                if(horizontal < 0 != LookingLeft)
+                {
+                    LookingLeft = horizontal < 0;
+                    //drop.transform.localScale =
+                    //    new Vector3(drop.transform.localScale.x, drop.transform.localScale.y,
+                    //    drop.transform.localScale.z);
+
+                    //handsPosition.localScale = new Vector3(-handsPosition.localScale.x, handsPosition.localScale.y, handsPosition.localScale.z);
+                    handsPosition.localPosition = new Vector3(-handsPosition.localPosition.x, handsPosition.localPosition.y, handsPosition.localPosition.z);
+                    sr.transform.localScale = new Vector3(-sr.transform.localScale.x, sr.transform.localScale.y, sr.transform.localScale.z);
+                }
+            }
             transform.Translate(Vector3.right * horizontal);
         }
     }
