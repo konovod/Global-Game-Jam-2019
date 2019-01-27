@@ -166,6 +166,14 @@ public class MissionCleanFirstRoom : Mission
     override public void OnInit(MonoBehaviour something)
     {
         base.OnInit(something);
+        var objects = GameObject.FindObjectsOfType<Item>();
+        Item.ItemsLocation.Clear();
+        foreach (var obj in objects)
+        {
+            if (obj.GetComponent<Item>() == null)
+                continue;
+            Item.ItemsLocation.Add(obj.GetComponent<Item>().id, obj.transform);
+        }
         GameController.instance.StartBubble(4, 4);
     }
     override public void OnFinish(MonoBehaviour something)
@@ -178,7 +186,7 @@ public class MissionCleanFirstRoom : Mission
     {
         foreach(var id in Scenario.instance.AllItems)
         {
-            if (!Item.IsFit(id) && (Item.ItemsLocation[id] == null || Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position)))
+            if (!Item.IsFit(id) && (Item.ItemsLocation[id] != null && Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position)))
                 return false;
         }
         return true;

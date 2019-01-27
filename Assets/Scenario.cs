@@ -42,7 +42,7 @@ public class Scenario : MonoBehaviour
         missions.Add(new TrainingMissionTakeItem());
         missions.Add(new TrainingMissionDropItem());
         missions.Add(new MissionFitTV());
-        //missions.Add(new MissionCleanFirstRoom());
+//        missions.Add(new MissionCleanFirstRoom());
         missions.Add(new MissionCleanAll());
         //        missions.Add(new TrainingMissionWS());
         missions.Add(new MissionWin());
