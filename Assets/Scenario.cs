@@ -87,8 +87,10 @@ public class Scenario : MonoBehaviour
         for (int i=0; i<SMS_COUNT; i++)
         {
             ///показать i-ю смс
+            Debug.Log("sms show");
             yield return new WaitForSeconds(SMS_DEADLINE);
             ///проверить что смс было отвечено
+            Debug.Log("sms check");
             yield return new WaitForSeconds(SMS_TIME - SMS_DEADLINE);
         }
         yield return new WaitForSeconds(FULL_TIME - SMS_START - SMS_COUNT* SMS_TIME);
