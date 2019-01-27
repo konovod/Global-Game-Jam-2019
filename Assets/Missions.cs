@@ -177,7 +177,7 @@ public class MissionCleanFirstRoom : Mission
     {
         foreach(var id in Scenario.instance.first_items)
         {
-            if (!Item.IsFit(id) /*&& (Item.ItemsLocation[id] == null || true)*/)
+            if (!Item.IsFit(id) && (Item.ItemsLocation[id] == null || Scenario.instance.FirstRoom.bounds.Contains(Item.ItemsLocation[id].position)))
                 return false;
         }
         return true;

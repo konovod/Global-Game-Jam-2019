@@ -19,7 +19,10 @@ public class Item : MonoBehaviour
     public static bool IsFit(int id)
     {
         if (!fit.ContainsKey(id))
+        { 
             fit.Add(id, false);
+            ItemsLocation.Add(id, null);
+        }
         return fit[id];
     }
 

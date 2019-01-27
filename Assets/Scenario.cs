@@ -16,6 +16,7 @@ public class Scenario : MonoBehaviour
     public int curMissionIndex = 0;
     public int tv_id;
     public int[] first_items;
+    public BoxCollider2D FirstRoom;
 
     private void Awake()
     {
